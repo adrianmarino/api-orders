@@ -36,7 +36,7 @@ public class SwaggerConfiguration {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("API Orders")
-                .description("And Orders CRUD.")
+                .description("An Orders CRUD API.")
                 .build();
     }
 

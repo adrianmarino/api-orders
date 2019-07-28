@@ -169,6 +169,7 @@ curl "http://localhost:8080/api/navent/info" | python -m json.tool
 curl "http://localhost:8080/api/navent/health" | python -m json.tool
 ```
 
+
 ```json
 {
     "status": "UP",
