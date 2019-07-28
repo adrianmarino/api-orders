@@ -36,7 +36,7 @@ public class Order {
     public String getName() {
         return name;
     }
-    
+
     // Don't use. Required by object mapper.
     @Deprecated
     public void setName(String name) {
@@ -46,7 +46,7 @@ public class Order {
     public BigDecimal getAmount() {
         return amount;
     }
-    
+
     // Don't use. Required by object mapper.
     @Deprecated
     public void setAmount(BigDecimal amount) {

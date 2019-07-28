@@ -67,7 +67,7 @@ public interface OrderDocumentation {
             )
             @PathVariable String id
     ) throws NotFoundEntityException;
-    
+
     @ApiOperation(value = "Get all orders")
     ResponseEntity<List<OrderDto>> findAll();
 }

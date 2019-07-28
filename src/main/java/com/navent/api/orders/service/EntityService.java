@@ -1,6 +1,5 @@
 package com.navent.api.orders.service;
 
-import com.navent.api.orders.domain.Order;
 import com.navent.api.orders.persistence.NotFoundEntityException;
 
 import java.util.Collection;

@@ -1,7 +1,7 @@
 package com.navent.api.orders.error;
 
 public class ErrorMessage {
-    
+
     private final String code;
 
     private final String message;
