@@ -2,7 +2,6 @@ package com.navent.api.orders.persistence.repository;
 
 
 import com.navent.api.orders.persistence.NotFoundEntityException;
-import com.navent.api.orders.persistence.sequence.SequencerGenerator;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
 
@@ -18,8 +17,6 @@ public abstract class MongoRepository<DOCUMENT> {
     protected final Class<DOCUMENT> documentClass;
 
     protected final MongoTemplate template;
-
-    protected SequencerGenerator sequencerGenerator;
 
     public MongoRepository(MongoTemplate template, Class<DOCUMENT> documentClass) {
         this.template = template;
