@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 @Document(collection = "orders")
 public class OrderPersistence {
 
-    @Id
+    @Id // Primary key by default
     private String id;
 
     private String name;
@@ -17,7 +17,7 @@ public class OrderPersistence {
 
     private BigDecimal discount;
 
-    // Don't use: Required by persistence layer
+    // Don't use: Required by persistence layer.
     @Deprecated
     public OrderPersistence() {
     }
@@ -32,6 +32,8 @@ public class OrderPersistence {
         return id;
     }
 
+    // Don't use: Used by persistence layer only.
+    @Deprecated
     public void setId(String id) {
         this.id = id;
     }

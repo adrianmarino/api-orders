@@ -1,0 +1,33 @@
+server:
+  servlet:
+    context-path: /api/navent
+  port: 8080
+  compression:
+    enabled: true
+    min-response-size: 1024
+    mime-types: application/json
+
+jetty:
+  maxThreads: 200
+  minThreads: 30
+
+spring:
+  application:
+    name: Orders
+  banner:
+    location: classpath:banner.txt
+  data:
+    mongodb:
+      uri: "mongodb://orders:1234@localhost:27017/orders"
+
+management:
+  security:
+    enabled: false
+  endpoints:
+    web:
+      base-path: /
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always

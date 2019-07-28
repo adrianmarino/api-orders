@@ -15,13 +15,14 @@ import javax.validation.Valid;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 
+@ControllerAdvice
 public abstract class EntityController<SERVICE extends EntityService<ENTITY>, ENTITY, DTO> {
 
-    private ErrorResponseFactory errorResponseFactory;
-    
     protected final EntityService<ENTITY> service;
 
     protected final MapperFacade mapper;
+
+    private ErrorResponseFactory errorResponseFactory;
 
     public EntityController(
             EntityService<ENTITY> service,
