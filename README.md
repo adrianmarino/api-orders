@@ -4,26 +4,26 @@ An orders crud api.
 
 ###  Requisites
 
-* Java 8: i.e. install using sdkman:
+* **Java 8**: i.e. install using sdkman:
 
     ```bash
     curl -s "https://get.sdkman.io" | bash
     sdk install java 8.0.222-amzn
     ```
 
-* Maven: i.e. install using sdkman:
+* **Maven**: i.e. install using sdkman:
 
     ```bash
     sdk install maven
     ```
 
-* MongoDB: i.e. install using yaourt (archlinux):
+* **MongoDB**: i.e. install using yaourt (archlinux):
 
     ```bash
     yaourt -S mongodb-bin
     ```
   
-* Docker: i.e. install using yaourt (archlinux):
+* **Docker**: i.e. install using yaourt (archlinux):
 
     ```bash
     yaourt -S docker
