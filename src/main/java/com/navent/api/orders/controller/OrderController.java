@@ -49,7 +49,7 @@ public class OrderController {
     }
 
     @RequestMapping("/{id}")
-    public ResponseEntity<OrderDto> findByCode(@PathVariable String id) throws NotFoundEntityException {
+    public ResponseEntity<OrderDto> findById(@PathVariable String id) throws NotFoundEntityException {
         return service.findById(id)
                 .map(it -> new ResponseEntity<>(toDto(it), OK))
                 .orElseThrow(() -> new NotFoundEntityException(id));

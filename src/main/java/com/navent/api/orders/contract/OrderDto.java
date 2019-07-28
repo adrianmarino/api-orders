@@ -1,5 +1,7 @@
 package com.navent.api.orders.contract;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
@@ -8,12 +10,15 @@ public class OrderDto {
     private String id;
 
     @NotNull
+    @NotBlank
     private String name;
 
     @NotNull
+    @Min(0)
     private BigDecimal amount;
 
     @NotNull
+    @Min(0)
     private BigDecimal discount;
 
     public OrderDto() {
