@@ -1,5 +1,6 @@
 package com.navent.api.orders.controller;
 
+import com.navent.api.orders.contract.EntityDto;
 import com.navent.api.orders.error.ErrorMessage;
 import com.navent.api.orders.error.ErrorResponseFactory;
 import com.navent.api.orders.exception.AppException;
@@ -19,7 +20,7 @@ import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 
 @ControllerAdvice
-public abstract class EntityController<SERVICE extends EntityService<ENTITY>, ENTITY, DTO> {
+public abstract class EntityController<SERVICE extends EntityService<ENTITY>, ENTITY, DTO extends EntityDto> {
 
     protected final EntityService<ENTITY> service;
 
@@ -44,6 +45,7 @@ public abstract class EntityController<SERVICE extends EntityService<ENTITY>, EN
 
     @PutMapping("/{id}")
     public ResponseEntity<DTO> update(@PathVariable String id, @Valid @RequestBody DTO entityDto) {
+        entityDto.setId(id);
         return new ResponseEntity<>(toDto(service.save(toDomain(entityDto))), OK);
     }
 

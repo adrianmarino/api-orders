@@ -1,16 +1,16 @@
 package com.navent.api.orders.contract;
 
-import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import java.math.BigDecimal;
 
-public class OrderDto {
+public class OrderDto implements EntityDto {
 
+    @Null
     private String id;
 
-    @Max(100)
     @NotNull
     @NotBlank
     private String name;
