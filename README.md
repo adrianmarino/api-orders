@@ -141,13 +141,24 @@ git clone https://github.com/adrianmarino/orders.git
 cd orders
 ```
 
-**Step 8:** Startup api-orders.
+**Step 8:** Use localhost mongodb url version under **/src/resources/application.yaml**
+
+```yml
+  ...
+  data:
+    mongodb:
+      uri: "mongodb://orders:1234@mongodb:27017/orders" <--- COMMENT (Docker version)
+      # uri: "mongodb://orders:1234@localhost:27017/orders" <--- UNCOMMENT (Localhost version)
+  ...
+```
+
+**Step 9:** Startup api-orders.
 
 ```bash
 bash startup
 ```
 
-**Step 9:** Check api info:
+**Step 10:** Check api info:
 
 ```bash
 curl "http://localhost:8080/api/navent/info" | python -m json.tool

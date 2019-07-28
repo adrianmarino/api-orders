@@ -1,20 +1,3 @@
 #!/bin/bash
-# -----------------------------------------------------------------------------
-# Variables
-# -----------------------------------------------------------------------------
-HOSTNAME="localhost"
-VERSION=$(mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version | grep -v '\[')
-CLASS_PATH="./target/api-orders-$VERSION.jar"
-# -----------------------------------------------------------------------------
-#
-#
-#
-# -----------------------------------------------------------------------------
-# Main
-# -----------------------------------------------------------------------------
-mvn clean install -q
-
-java -cp $CLASS_PATH -server \
-    -Dserver.address=$HOSTNAME \
-    com.navent.api.orders.App
-# -----------------------------------------------------------------------------
+mvn clean install
+java -jar ./target/api-orders-*.jar -server -Dserver.port=8080 com.navent.api.orders.App
