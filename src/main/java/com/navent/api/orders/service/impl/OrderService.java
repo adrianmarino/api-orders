@@ -9,7 +9,12 @@ import ma.glasnost.orika.MapperFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 @Service
 public class OrderService implements EntityService<Order> {
@@ -37,6 +42,11 @@ public class OrderService implements EntityService<Order> {
     @Override
     public Optional<Order> findById(String id) {
         return repository.findById(id).map(this::toDomain);
+    }
+
+    @Override
+    public Collection<Order> findAll() {
+        return repository.findAll().stream().map(this::toDomain).collect(toList());
     }
 
     private Order toDomain(OrderPersistence savedPersistenceEntity) {

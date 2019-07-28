@@ -12,6 +12,11 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 
@@ -49,16 +54,25 @@ public abstract class EntityController<SERVICE extends EntityService<ENTITY>, EN
         service.remove(id);
     }
 
-    @RequestMapping("/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<DTO> findById(@PathVariable String id) throws NotFoundEntityException {
         return service.findById(id)
                 .map(entity -> new ResponseEntity<>(toDto(entity), OK))
                 .orElseThrow(() -> new NotFoundEntityException(id));
     }
 
+    @GetMapping("/all")
+    public ResponseEntity<List<DTO>> findAll() {
+        return new ResponseEntity<>(toDtos(service.findAll()), OK);
+    }
+
     @ExceptionHandler(AppException.class)
     public ResponseEntity<ErrorMessage> exceptionHandler(HttpServletRequest request, AppException exception) {
         return errorResponseFactory.create(exception);
+    }
+
+    private List<DTO> toDtos(Collection<ENTITY> entities) {
+        return entities.stream().map(this::toDto).collect(toList());
     }
 
     protected abstract DTO toDto(ENTITY order);

@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.List;
+
 /**
  * Used to api documentation purpose.
  */
@@ -65,4 +67,7 @@ public interface OrderDocumentation {
             )
             @PathVariable String id
     ) throws NotFoundEntityException;
+    
+    @ApiOperation(value = "Get all orders")
+    ResponseEntity<List<OrderDto>> findAll();
 }
