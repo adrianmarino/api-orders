@@ -1,0 +1,19 @@
+version: "3"
+services:
+  mongodb:
+    image: vepo/mongo
+    environment:
+      - AUTH=yes
+      - ADMIN_USER=admin
+      - ADMIN_PASS=1234
+      - APPLICATION_DATABASE=orders
+      - APPLICATION_USER=orders
+      - APPLICATION_PASS=1234
+    ports:
+      - 27017:27017
+  app:
+    build: .
+    ports:
+      - 8080:8080
+    links:
+      - mongodb

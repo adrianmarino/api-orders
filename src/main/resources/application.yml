@@ -18,7 +18,7 @@ spring:
     location: classpath:banner.txt
   data:
     mongodb:
-      uri: "mongodb://orders:1234@localhost:27017/orders"
+      uri: "mongodb://orders:1234@mongodb:27017/orders"
 
 management:
   security:

@@ -1,0 +1,9 @@
+#!/bin/sh
+echo -e "\nCompile and install packages...\n"
+mvn clean package
+
+echo -e "\nBuild...\n"
+sudo docker-compose -f docker-compose.yml build
+
+echo -e "\nStartup...\n"
+sudo docker-compose -f docker-compose.yml up
