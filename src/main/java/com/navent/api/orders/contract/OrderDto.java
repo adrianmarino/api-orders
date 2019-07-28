@@ -1,5 +1,6 @@
 package com.navent.api.orders.contract;
 
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -9,6 +10,7 @@ public class OrderDto {
 
     private String id;
 
+    @Max(100)
     @NotNull
     @NotBlank
     private String name;
