@@ -1,5 +1,6 @@
 package com.navent.api.orders.controller.documentation;
 
+import com.navent.api.orders.cache.NotFoundEntityInCacheException;
 import com.navent.api.orders.contract.OrderDto;
 import com.navent.api.orders.persistence.NotFoundEntityException;
 import io.swagger.annotations.Api;
@@ -66,7 +67,7 @@ public interface OrderDocumentation {
                     required = true
             )
             @PathVariable String id
-    ) throws NotFoundEntityException;
+    ) throws NotFoundEntityException, NotFoundEntityInCacheException;
 
     @ApiOperation(value = "Get all orders")
     ResponseEntity<List<OrderDto>> findAll();

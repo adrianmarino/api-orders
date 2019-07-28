@@ -1,5 +1,6 @@
 package com.navent.api.orders.controller;
 
+import com.navent.api.orders.cache.NotFoundEntityInCacheException;
 import com.navent.api.orders.contract.EntityDto;
 import com.navent.api.orders.error.ErrorMessage;
 import com.navent.api.orders.error.ErrorResponseFactory;
@@ -20,16 +21,16 @@ import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 
 @ControllerAdvice
-public abstract class EntityController<SERVICE extends EntityService<ENTITY>, ENTITY, DTO extends EntityDto> {
+public abstract class EntityController<SERVICE extends EntityService<ENTITY, PER_ENTITY>, DTO extends EntityDto, ENTITY, PER_ENTITY> {
 
-    protected final EntityService<ENTITY> service;
+    protected final EntityService<ENTITY, PER_ENTITY> service;
 
     protected final MapperFacade mapper;
 
     private ErrorResponseFactory errorResponseFactory;
 
     public EntityController(
-            EntityService<ENTITY> service,
+            EntityService<ENTITY, PER_ENTITY> service,
             MapperFacade mapper,
             ErrorResponseFactory errorResponseFactory
     ) {
@@ -55,7 +56,7 @@ public abstract class EntityController<SERVICE extends EntityService<ENTITY>, EN
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<DTO> findById(@PathVariable String id) throws NotFoundEntityException {
+    public ResponseEntity<DTO> findById(@PathVariable String id) throws NotFoundEntityException, NotFoundEntityInCacheException {
         return service.findById(id)
                 .map(entity -> new ResponseEntity<>(toDto(entity), OK))
                 .orElseThrow(() -> new NotFoundEntityException(id));

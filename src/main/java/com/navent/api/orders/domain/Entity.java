@@ -1,14 +1,8 @@
 package com.navent.api.orders.domain;
 
-public class Entity {
+public interface Entity {
 
-    private String id;
+    String getId();
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
+    void setId(String id);
 }

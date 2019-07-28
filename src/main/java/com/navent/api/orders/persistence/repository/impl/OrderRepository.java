@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Repository;
 
-// TODO: PedidosDAO
 @Repository
 public class OrderRepository extends MongoRepository<OrderPersistence> {
+    
     @Autowired
     public OrderRepository(MongoTemplate mongoTemplate) {
         super(mongoTemplate, OrderPersistence.class);

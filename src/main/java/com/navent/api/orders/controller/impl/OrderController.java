@@ -5,6 +5,7 @@ import com.navent.api.orders.controller.EntityController;
 import com.navent.api.orders.controller.documentation.OrderDocumentation;
 import com.navent.api.orders.domain.Order;
 import com.navent.api.orders.error.ErrorResponseFactory;
+import com.navent.api.orders.persistence.entity.OrderPersistence;
 import com.navent.api.orders.service.impl.OrderService;
 import ma.glasnost.orika.MapperFacade;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/orders")
-public class OrderController extends EntityController<OrderService, Order, OrderDto> implements OrderDocumentation {
+public class OrderController extends EntityController<OrderService, OrderDto, Order, OrderPersistence> implements OrderDocumentation {
 
     @Autowired
     public OrderController(

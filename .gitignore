@@ -32,3 +32,4 @@ build/
 .mvn/
 dependency-reduced-pom.xml
 nohup.out
+.attach_pid*

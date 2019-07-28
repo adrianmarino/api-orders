@@ -1,8 +1,9 @@
 package com.navent.api.orders.domain;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
-public class Order {
+public class Order implements Entity {
 
     private String id;
 
@@ -17,10 +18,15 @@ public class Order {
     public Order() {
     }
 
-    public Order(String name, BigDecimal amount, BigDecimal discount) {
+    public Order(String id, String name, BigDecimal amount, BigDecimal discount) {
+        this.id = id;
         this.name = name;
         this.amount = amount;
         this.discount = discount;
+    }
+
+    public Order(String name, BigDecimal amount, BigDecimal discount) {
+        this(null, name, amount, discount);
     }
 
     public String getId() {
@@ -61,5 +67,30 @@ public class Order {
     @Deprecated
     public void setDiscount(BigDecimal discount) {
         this.discount = discount;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Order order = (Order) o;
+        return Objects.equals(id, order.id) &&
+                Objects.equals(name, order.name) &&
+                Objects.equals(amount, order.amount) &&
+                Objects.equals(discount, order.discount);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, amount, discount);
+    }
+
+    @Override
+    public String toString() {
+        return "(id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", amount=" + amount +
+                ", discount=" + discount +
+                ')';
     }
 }
