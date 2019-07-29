@@ -4,6 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 @Document(collection = "orders")
 public class OrderPersistence {
@@ -57,5 +58,30 @@ public class OrderPersistence {
 
     public void setDiscount(BigDecimal discount) {
         this.discount = discount;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        OrderPersistence that = (OrderPersistence) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(amount, that.amount) &&
+                Objects.equals(discount, that.discount);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, amount, discount);
+    }
+
+    @Override
+    public String toString() {
+        return "(id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", amount=" + amount +
+                ", discount=" + discount +
+                ')';
     }
 }

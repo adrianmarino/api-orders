@@ -31,6 +31,9 @@
         <!-- Logging -->
         <org.slf4j.jcl-over-slf4j.version>1.7.12</org.slf4j.jcl-over-slf4j.version>
         <net.logstash.logback.version>4.5.1</net.logstash.logback.version>
+
+        <!-- Utils -->
+        <guava.version>27.1-jre</guava.version>
     </properties>
 
     <parent>
@@ -114,6 +117,13 @@
             <version>${org.slf4j.jcl-over-slf4j.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
+        </dependency>
+
+        
         <!-- ****** Test ****** -->
 
 
@@ -169,6 +179,13 @@
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest-all</artifactId>
             <version>${hamcrest.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- JSON Utils -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
