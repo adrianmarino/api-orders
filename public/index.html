@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <style>
+        .main {
+            padding: 1.5rem;
+        }
+    </style>
+</head>
+
+<body class="container">
+
+    <div class="main">
+        <div id="notify" class="alert alert-danger" style="display: none" role="alert">
+        </div>
+        <form id="create-order">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Name</span>
+                </div>
+                <input type="text" id="name" class="form-control" aria-label="Default"
+                    aria-describedby="inputGroup-sizing-default">
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">$</span>
+                </div>
+                <input type="text" id="amount" class="form-control" placeholder="Amount" aria-label="Amount"
+                    aria-describedby="basic-addon1">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">$</span>
+                </div>
+                <input type="text" id="discount" class="form-control" placeholder="Discount" aria-label="Discount"
+                    aria-describedby="basic-addon1">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Send</button>
+        </form>
+    </div>
+
+    <div class="main">
+        <table id="orders" class="table">
+            <thead>
+                <tr>
+                    <th scope="col">name</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Discount</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+
+    <script type='text/javascript'>
+        $("#create-order").submit(function (event) {
+            /* stop form from submitting normally */
+            event.preventDefault();
+
+            $.ajax({
+                data: JSON.stringify({
+                    "name": $('#name').val(),
+                    "amount": $('#amount').val(),
+                    "discount": $('#discount').val()
+                }),
+                contentType: "application/json; charset=utf-8",
+                type: "POST",
+                dataType: 'json',
+                url: "/api/navent/orders",
+            })
+                .done(function (data, textStatus, jqXHR) {
+                    $('#notify').hide();
+                    $("#create-order").trigger("reset");
+                    updateOrdersTable();
+                })
+                .fail(function (jqXHR, textStatus, errorThrown) {
+                    var data = JSON.parse(jqXHR.responseText);
+
+                    $('#notify').empty();
+                    console.log(data.errors);
+                    data.errors.forEach(it => {
+                        $('#notify').append(capitalize(it.field) + ": " + capitalize(it.defaultMessage) + ". ");
+                    });
+                    $('#notify').show();
+                });
+        });
+
+        const capitalize = (s) => {
+                if (typeof s !== 'string') return ''
+                return s.charAt(0).toUpperCase() + s.slice(1)
+        }
+
+        function removeOrder(id) {
+            $.ajax({
+                url: "/api/navent/orders/" + id,
+                type: 'DELETE',
+                success: function(result) {
+                    updateOrdersTable();
+                    $('#notify').hide();
+                }
+            });
+        }
+
+        function updateOrdersTable() {
+            $('#orders tbody').empty();
+
+            $.getJSON('/api/navent/orders/all', function (data) {
+                $(data).each(function (i, order) {
+                    $('#orders')
+                        .append($("<tr>")
+                            .append($("<td>").append(order.name))
+                            .append($("<td>").append(order.amount))
+                            .append($("<td>").append(order.discount))
+                            .append($("<td>")
+                                .append($('<button type="button" class="btn btn-danger" onclick="removeOrder(\'' + order.id.trim() + '\')">').append('X'))))                 
+                });
+            })
+                .fail(function (e) {
+                    console.log('error:');
+                    console.error(e);
+                });
+        }
+
+        updateOrdersTable();
+    </script>
+
+</body>
+
+</html>
