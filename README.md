@@ -89,6 +89,8 @@ curl "http://localhost:8080/api/navent/health" | python -m json.tool
 
 **Step 5:** Go to [swagger ui](http://localhost:8080/api/navent/swagger-ui.html) doc to test api-orders.
 
+**Step 6:** Go to [home](http://localhost:8080/api/navent).
+
 
 ### Start API locally
 
@@ -204,3 +206,5 @@ curl "http://localhost:8080/api/navent/health" | python -m json.tool
 ```
 
 **Step 11:** Go to [swagger ui](http://localhost:8080/api/navent/swagger-ui.html) doc to test api-orders.
+
+**Step 12:** Go to [home](http://localhost:8080/api/navent).
