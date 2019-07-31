@@ -1,7 +1,5 @@
 # API Orders
 
-An orders crud api.
-
 ###  Requisites
 
 * **Java 8**: i.e. install using sdkman:
