@@ -75,29 +75,28 @@
                 dataType: 'json',
                 url: "/api/navent/orders",
             })
-                .done(function (data, textStatus, jqXHR) {
-                    $('#notify').hide();
-                    $("#create-order").trigger("reset");
-                    updateOrdersTable();
-                })
-                .fail(function (jqXHR, textStatus, errorThrown) {
-                    var data = JSON.parse(jqXHR.responseText);
+            .done(function (data, textStatus, jqXHR) {
+                $('#notify').hide();
+                $("#create-order").trigger("reset");
+                updateOrdersTable();
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                var data = JSON.parse(jqXHR.responseText);
 
-                    $('#notify').empty();
-                    console.log(data.errors);
-                    data.errors.forEach(it => {
-                        $('#notify').append(capitalize(it.field) + ": " + capitalize(it.defaultMessage) + ". ");
-                    });
-                    $('#notify').show();
+                $('#notify').empty();
+                data.errors.forEach(it => {
+                    $('#notify').append(capitalize(it.field) + ": " + capitalize(it.defaultMessage) + ". ");
                 });
+                $('#notify').show();
+            });
         });
 
-        const capitalize = (s) => {
-                if (typeof s !== 'string') return ''
-                return s.charAt(0).toUpperCase() + s.slice(1)
+        const capitalize = s => {
+            if (typeof s !== 'string') return ''
+            return s.charAt(0).toUpperCase() + s.slice(1)
         }
 
-        function removeOrder(id) {
+        const removeOrder = id => {
             $.ajax({
                 url: "/api/navent/orders/" + id,
                 type: 'DELETE',
@@ -108,7 +107,7 @@
             });
         }
 
-        function updateOrdersTable() {
+        const updateOrdersTable = () => {
             $('#orders tbody').empty();
 
             $.getJSON('/api/navent/orders/all', function (data) {
@@ -119,13 +118,13 @@
                             .append($("<td>").append(order.amount))
                             .append($("<td>").append(order.discount))
                             .append($("<td>")
-                                .append($('<button type="button" class="btn btn-danger" onclick="removeOrder(\'' + order.id.trim() + '\')">').append('X'))))                 
+                                .append($('<button type="button" class="btn btn-danger" onclick="removeOrder(\'' + order.id.trim() + '\')">').append('X'))))            
                 });
             })
-                .fail(function (e) {
-                    console.log('error:');
-                    console.error(e);
-                });
+            .fail(e => {
+                console.log('error:');
+                console.error(e);
+            });
         }
 
         updateOrdersTable();
